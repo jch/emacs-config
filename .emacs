@@ -54,6 +54,11 @@
   (indent-region (point-min) (point-max) nil)
   (untabify (point-min) (point-max)))
 
+;;; Aliases
+(defalias 'qrr    'query-replace-regexp)
+(defalias 'ta     'tags-apropos)
+(defalias 'ts     'tags-search)
+
 ;;; ### Set up Keybindings ###
 (global-set-key "\M-1" 'compile)
 (global-set-key "\M-g" 'goto-line)
@@ -72,7 +77,7 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'reverse)
 (setq uniquify-separator "/")
-(setq uniquify-after-kill-buffer-p t)    ; rename after killing
+(setq uniquify-after-kill-buffer-p t)   ; rename after killing
                                         ; uniquified
 (setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special
                                         ; buffers
