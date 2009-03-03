@@ -46,6 +46,11 @@
 ;; default mode and fill
 (setq default-major-mode 'text-mode)
 
+;; http://thebogles.com/blog/2008/05/customizing-emacs-grep-find-to-ignore-subversion-files/
+(custom-set-variables '(grep-find-command "find . -type f -not \
+-name \"*.svn-base\" -and -not -name \"*.tmp\" -print0 | xargs -0 \
+-e grep -n -s -F "))
+
 ;; http://www.emacsblog.org/2007/01/17/indent-whole-buffer/
 (defun iwb ()
   "indent whole buffer"
@@ -58,6 +63,7 @@
 (defalias 'qrr    'query-replace-regexp)
 (defalias 'ta     'tags-apropos)
 (defalias 'ts     'tags-search)
+(defalias 'gf     'grep-find)
 
 ;;; ### Set up Keybindings ###
 (global-set-key "\M-1" 'compile)
