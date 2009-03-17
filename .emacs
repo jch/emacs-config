@@ -49,7 +49,7 @@
 ;; http://thebogles.com/blog/2008/05/customizing-emacs-grep-find-to-ignore-subversion-files/
 (custom-set-variables '(grep-find-command "find . -type f -not \
 -name \"*.svn-base\" -and -not -name \"*.tmp\" -print0 | xargs -0 \
--e grep -n -s -F "))
+grep -n -s -F "))
 
 ;; http://www.emacsblog.org/2007/01/17/indent-whole-buffer/
 (defun iwb ()
@@ -69,6 +69,7 @@
 (global-set-key "\M-1" 'compile)
 (global-set-key "\M-g" 'goto-line)
 (global-set-key "\M-i" 'indent-region)
+(global-set-key "\M-s" 'isearch-forward-regexp)
 
 ;; Dired remove directories
 (setq dired-recursive-deletes t)
