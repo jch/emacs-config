@@ -1,6 +1,6 @@
 ;;; ### Plugin Initialization ###
-(setq plugins-to-load '("harvey-navigation" "javascript" "dsvn" "ruby"
-                        "ido"))
+(setq plugins-to-load '("harvey-navigation" "js2" "dsvn" "ruby"
+                        "ido" "rhtml"))
 
 ;; add to "~/.emacs.d/plugins/__plugins-to-load__ to load-path
 (let* ((my-lisp-dir "~/.emacs.d/plugins")
