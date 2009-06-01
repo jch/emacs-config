@@ -1,6 +1,6 @@
 ;;; ### Plugin Initialization ###
 (setq plugins-to-load '("harvey-navigation" "js2" "dsvn" "ruby"
-                        "ido" "rhtml" "mozrepl"))
+                        "ido" "rhtml" "keyolution" "browse-kill-ring"))
 
 ;; add to "~/.emacs.d/plugins/__plugins-to-load__ to load-path
 (let* ((my-lisp-dir "~/.emacs.d/plugins")
@@ -22,12 +22,16 @@
 ;; doing a replace followed by a search, uses the last search string
 (setq query-replace-interactive t)
 
+;; http://curiousprogrammer.wordpress.com/2009/05/19/customiz-dabbrev/
+(setq dabbrev-abbrev-skip-leading-regexp "[^ ]*[<>=*]")
+
 ;; flymake colors
 ;;(set-face-background 'flymake-errline "red4")
 ;;(set-face-background 'flymake-warnline "dark slate blue")
 
-;; default tab width to four spaces
-(setq default-tab-width 2)
+;; default tab width to two spaces
+(setq-default tab-width 2)
+(setq-default c-basic-offset 2)
 (setq-default indent-tabs-mode nil)
 
 ;; title bar shows name of current buffer ;;
@@ -47,9 +51,16 @@
 (setq default-major-mode 'text-mode)
 
 ;; http://thebogles.com/blog/2008/05/customizing-emacs-grep-find-to-ignore-subversion-files/
-(custom-set-variables '(grep-find-command "find . -type f -not \
--name \"*.svn-base\" -and -not -name \"*.tmp\" -print0 | xargs -0 \
-grep -n -s -F "))
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(grep-find-command "find . -type f -not -name \"*.svn-base\" -and -not -name \"*.tmp\" -print0 | xargs -0 grep -n -s -F ")
+ '(gud-gdb-command-name "gdb --annotate=1")
+ '(js2-auto-indent-flag nil)
+ '(js2-cleanup-whitespace t)
+ '(large-file-warning-threshold nil))
 
 ;; http://www.emacsblog.org/2007/01/17/indent-whole-buffer/
 (defun iwb ()
@@ -70,6 +81,8 @@ grep -n -s -F "))
 (global-set-key "\M-g" 'goto-line)
 (global-set-key "\M-i" 'indent-region)
 (global-set-key "\M-s" 'isearch-forward-regexp)
+(global-set-key "\M-c" 'comment-or-uncomment-region)
+(global-set-key "\C-ck" 'browse-kill-ring)
 
 ;; Dired remove directories
 (setq dired-recursive-deletes t)
@@ -93,3 +106,18 @@ grep -n -s -F "))
 (setq dired-recursive-deletes 'top)
 
 ;; http://cvs.savannah.gnu.org/viewvc/*checkout*/emacs/emacs/lisp/emacs-lisp/re-builder.el
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
+
+
+;; fuck-wordpress: start in index.html buffer, have 2nd buffer open that's from firefox
+(fset 'fuck-wordpress
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([134217788 14 14 14 14 14 14 14 14 14 14 67108896 134217790 16 16 5 134217847 24 111 134217788 5 return 25 67108896 134217790 23] 0 "%d")) arg)))
+
+(fset 'restart-passenger
+   "\C-[!touch ~/projects/coupa_enterprise/trunk/tmp/restart.txt\C-m")
+(global-set-key "\M-9" 'restart-passenger)
