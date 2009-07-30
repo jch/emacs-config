@@ -1,5 +1,5 @@
 ;;; ### Plugin Initialization ###
-(setq plugins-to-load '("harvey-navigation" "js2" "dsvn" "ruby"
+(setq plugins-to-load '("harvey-navigation" "dsvn" "ruby"
                         "ido" "rhtml" "keyolution" "browse-kill-ring"))
 
 ;; add to "~/.emacs.d/plugins/__plugins-to-load__ to load-path
@@ -56,11 +56,11 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(grep-find-command "find . -type f -not -name \"*.svn-base\" -and -not -name \"*.tmp\" -print0 | xargs -0 grep -n -s -F ")
+ '(grep-find-command "find . -type f -not -name \"*.svn*\" -and -not -name \"all-wcprops\" -and -not -name \"*.tmp\" -and -not -name \"*~\" -and -not -name \"TAGS\" -print0 | xargs -0 grep -n -s -F ")
  '(gud-gdb-command-name "gdb --annotate=1")
  '(js2-auto-indent-flag nil)
- '(js2-cleanup-whitespace t)
- '(large-file-warning-threshold nil))
+ '(large-file-warning-threshold nil)
+ '(tags-revert-without-query t))
 
 ;; http://www.emacsblog.org/2007/01/17/indent-whole-buffer/
 (defun iwb ()
@@ -121,3 +121,10 @@
 (fset 'restart-passenger
    "\C-[!touch ~/projects/coupa_enterprise/trunk/tmp/restart.txt\C-m")
 (global-set-key "\M-9" 'restart-passenger)
+
+(defun coupa-svn-st ()
+  "Run 'svn status' on coupa enterprise trunk"
+  (interactive)
+  (svn-check-running)
+  (svn-status "~/projects/coupa_enterprise/trunk"))
+(global-set-key "\M-8" 'coupa-svn-st)
